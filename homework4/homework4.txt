@@ -1,0 +1,7 @@
+films:                sessions:        tickets:
+
+film_id               session_id       ticket_id
+title                 film_id          session_id
+duration              day              film_id
+                      beginning
+                      price
