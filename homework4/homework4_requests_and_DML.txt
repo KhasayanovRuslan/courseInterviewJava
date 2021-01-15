@@ -1,0 +1,67 @@
+insert into films (title, duration) values ('Harry Potter film1', 2);
+insert into films (title, duration) values ('Harry Potter film2', 2);
+insert into films (title, duration) values ('The Chronicles of Narnia film1', 2);
+insert into films (title, duration) values ('The Chronicles of Narnia film2', 2);
+select * from films;
+
+insert into sessions (film_id, day, beginning, price) values (1, 'monday', '10:00:00', 200.00); 
+insert into sessions (film_id, day, beginning, price) values (3, 'monday', '10:00:00', 200.00);
+insert into sessions (film_id, day, beginning, price) values (3, 'monday', '10:00:00', 200.00);  
+insert into sessions (film_id, day, beginning, price) values (1, 'monday', '12:00:00', 200.00);
+insert into sessions (film_id, day, beginning, price) values (3, 'monday', '14:00:00', 200.00); 
+insert into sessions (film_id, day, beginning, price) values (4, 'monday', '14:00:00', 200.00); 
+insert into sessions (film_id, day, beginning, price) values (2, 'monday', '08:00:00', 300.00); 
+insert into sessions (film_id, day, beginning, price) values (4, 'monday', '20:00:00', 400.00); 
+insert into sessions (film_id, day, beginning, price) values (4, 'monday', '22:00:00', 400.00); 
+select * from sessions;
+delete from sessions where session_id = 2;
+
+insert into tickets (session_id, film_id) values (1,1);
+insert into tickets (session_id, film_id) values (3,3);
+insert into tickets (session_id, film_id) values (4,1);
+insert into tickets (session_id, film_id) values (5,3);
+insert into tickets (session_id, film_id) values (6,2);
+insert into tickets (session_id, film_id) values (7,4);
+insert into tickets (session_id, film_id) values (8,4);
+select * from tickets;
+insert into tickets (session_id, film_id) values (8,4);
+insert into tickets (session_id, film_id) values (8,4);
+insert into tickets (session_id, film_id) values (1,1);
+insert into tickets (session_id, film_id) values (1,1);
+
+[select f.title, f.duration, s.beginning from films f inner join sessions s on f.film_id = s.film_id
+  where s.beginning in (select beginning from sessions group by beginning having count(beginning) > 1)
+  order by s.beginning asc;
+
+'Harry Potter film1',             '2', '10:00:00'
+'The Chronicles of Narnia film1', '2', '10:00:00'
+'The Chronicles of Narnia film1', '2', '14:00:00'
+'The Chronicles of Narnia film2', '2', '14:00:00']
+
+[select beginning, count(t.ticket_id), sum(s.price) 
+  from tickets t inner join sessions s on t.film_id = s.film_id
+  where beginning between '09:00:00' and '15:00:00'
+  group by beginning;
+
+ select beginning, count(t.ticket_id), sum(s.price) 
+  from tickets t inner join sessions s on t.film_id = s.film_id
+  where beginning between '15:00:00' and '18:00:00'
+  group by beginning;
+
+ select beginning, count(t.ticket_id), sum(s.price) 
+  from tickets t inner join sessions s on t.film_id = s.film_id
+  where beginning between '18:00:00' and '21:00:00'
+  group by beginning;
+
+ select beginning, count(t.ticket_id), sum(s.price) 
+  from tickets t inner join sessions s on t.film_id = s.film_id
+  where beginning between '21:00:00' and '00:00:00'
+  group by beginning;]
+
+ 
+
+
+
+
+
+
